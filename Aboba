@@ -1,0 +1,41 @@
+-- Script para desbloquear habilidades no HUD
+
+function unlockAbilities(Blue Pull,True Unlimited Void 0,2s,True Unlimited Void,True Malevolent Shrine,Megumin Movest)
+    -- Aqui vamos definir as habilidades que queremos desbloquear
+    local abilities = {"Habilidade1", "Habilidade2", "Habilidade3"}
+    for _, ability in pairs(abilities) do
+        -- Código para desbloquear cada habilidade
+        print("Desbloqueando " .. ability)
+        -- Aqui você adicionaria o código específico para desbloquear a habilidade no jogo
+    end
+end
+
+-- Executa as funções para desbloquear habilidades e criar o HUD
+unlockAbilities()
+createHUD()
+
+
+function createHUD()
+    -- Código para criar o HUD na tela
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0.3, 0, 0.3, 0)
+    frame.Position = UDim2.new(0.35, 0, 0.35, 0)
+    frame.Parent = screenGui
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Text = "Habilidades Desbloqueadas"
+    textLabel.Size = UDim2.new(1, 0, 0.2, 0)
+    textLabel.Parent = frame
+
+    -- Adiciona as habilidades ao HUD
+    for i, ability in pairs(abilities) do
+        local abilityLabel = Instance.new("TextLabel")
+        abilityLabel.Text = ability
+        abilityLabel.Size = UDim2.new(1, 0, 0.2, 0)
+        abilityLabel.Position = UDim2.new(0, 0, 0.2 * i, 0)
+        abilityLabel.Parent = frame
+    end
+end
