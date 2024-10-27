@@ -1,0 +1,50 @@
+-- Função para desbloquear habilidades
+function unlockAbilities()
+    -- Definindo as habilidades que queremos desbloquear
+    local abilities = {"Blue Pull", "True Unlimited Void", "True Malevolent Shrine", "Megumin Movest"}
+    for _, ability in pairs(abilities) do
+        -- Código para desbloquear cada habilidade
+        print("Desbloqueando " .. ability)
+        -- Aqui você adicionaria o código específico para desbloquear a habilidade no jogo
+    end
+    return abilities
+end
+
+-- Função para criar o HUD na tela
+function createHUD(abilities)
+    -- Código para criar o HUD na tela
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0.3, 0, 0.3, 0)
+    frame.Position = UDim2.new(0.35, 0, 0.35, 0)
+    frame.Parent = screenGui
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Text = "Habilidades Desbloqueadas"
+    textLabel.Size = UDim2.new(1, 0, 0.2, 0)
+    textLabel.Parent = frame
+    -- Adiciona as habilidades ao HUD
+    for i, ability in pairs(abilities) do
+        local abilityLabel = Instance.new("TextLabel")
+        abilityLabel.Text = ability
+        abilityLabel.Size = UDim2.new(1, 0, 0.2, 0)
+        abilityLabel.Position = UDim2.new(0, 0, 0.2 * i, 0)
+        abilityLabel.Parent = frame
+    end
+end
+
+-- Função para criar um Wilibe no jogo
+function createWilibe()
+    local wilibe = Instance.new("Part")
+    wilibe.Name = "Wilibe"
+    wilibe.Size = Vector3.new(2, 2, 2)
+    wilibe.Position = Vector3.new(0, 10, 0)
+    wilibe.Anchored = true
+    wilibe.BrickColor = BrickColor.new("Bright red")
+    wilibe.Parent = game.Workspace
+end
+
+-- Executa as funções para desbloquear habilidades, criar o HUD e criar o Wilibe
+local abilities = unlockAbilities()
+createHUD(abilities)
+createWilibe()
