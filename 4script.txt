@@ -1,0 +1,79 @@
+-- URL do Webhook (substitua pelo seu URL do Webhook)
+local webhookURL = "https://seu-webhook-url-aqui"
+
+-- Função para enviar notificações ao Webhook
+local function enviarNotificacao(mensagem)
+    local http = game:GetService("HttpService")
+    local data = {
+        ["content"] = mensagem
+    }
+    local jsonData = http:JSONEncode(data)
+    http:PostAsync(webhookURL, jsonData, Enum.HttpContentType.ApplicationJson)
+end
+
+-- Função para desbloquear personagens
+local function desbloquearPersonagens()
+    -- Adicione aqui a lógica para desbloquear personagens
+    -- Exemplo: game.Players.LocalPlayer.Character.Powers = "Todos os poderes"
+    print("Personagens desbloqueados!")
+    enviarNotificacao("Personagens foram desbloqueados!")
+end
+
+-- Criar HUD
+local function criarHUD()
+    local ScreenGui = Instance.new("ScreenGui")
+    local Frame = Instance.new("Frame")
+    local Button = Instance.new("TextButton")
+
+    ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    Frame.Parent = ScreenGui
+    Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    Frame.Position = UDim2.new(0.5, -75, 0.5, -50)
+    Frame.Size = UDim2.new(0, 150, 0, 100)
+    Frame.BackgroundTransparency = 0.5
+
+    Button.Parent = Frame
+    Button.Size = UDim2.new(1, 0, 1, 0)
+    Button.Text = "Desbloquear Personagens"
+    Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Button.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    Button.MouseButton1Click:Connect(desbloquearPersonagens)
+end
+
+-- Carregar e executar os scripts externos
+local function carregarScripts()
+    local success1, script1 = pcall(function()
+        return loadstring(game:HttpGet("https://raw.githubusercontent.com/Wafflesbro/-Yuta-Domain-Anm-Battlegrounds/refs/heads/main/Script2.txt"))()
+    end)
+    if success1 then
+        print("Script 1 carregado com sucesso!")
+    else
+        print("Erro ao carregar Script 1:", script1)
+    end
+
+    local success2, script2 = pcall(function()
+        return loadstring(game:HttpGet("https://rawscripts.net/raw/MEGUNA-+-WORLD-SLASH-Sukuna-Battlegrounds-Budgie-Hub-14156"))()
+    end)
+    if success2 then
+        print("Script 2 carregado com sucesso!")
+    else
+        print("Erro ao carregar Script 2:", script2)
+    end
+
+    local success3, script3 = pcall(function()
+        return loadstring(game:HttpGet("https://raw.githubusercontent.com/Wafflesbro/-Yuta-Domain-Anm-Battlegrounds/refs/heads/main/Script3.txt"))()
+    end)
+    if success3 then
+        print("Script 3 carregado com sucesso!")
+    else
+        print("Erro ao carregar Script 3:", script3)
+    end
+end
+
+-- Inicializar
+local function inicializar()
+    criarHUD()
+    carregarScripts()
+end
+
+inicializar()
