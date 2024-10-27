@@ -1,0 +1,55 @@
+-- Desativar configurações gráficas desnecessárias
+game.StarterGui:SetCore("TopbarEnabled", false)
+game.Workspace.CurrentCamera.FieldOfView = 70
+game.GraphicsQuality = Enum.QualityLevel.Level2
+
+-- Desativar sombras
+for _, descendant in pairs(game.Workspace:GetDescendants()) do
+    if descendant:IsA("ShadowMap") then
+        descendant:Destroy()
+    end
+end
+
+-- Ajustar a distância de renderização
+game.Workspace.CurrentCamera.ClipsDescendants = true
+game.Workspace.CurrentCamera.NearClipPlane = 0.1
+game.Workspace.CurrentCamera.FarClipPlane = 256
+
+-- Reduzir efeitos de partículas
+for _, descendant in pairs(game.Workspace:GetDescendants()) do
+    if descendant:IsA("ParticleEmitter") then
+        descendant.Enabled = false
+    end
+end
+
+-- Desativar scripts desnecessários
+for _, descendant in pairs(game:GetDescendants()) do
+    if descendant:IsA("Script") or descendant:IsA("LocalScript") then
+        descendant.Disabled = true
+    end
+end
+
+-- Ajustar configurações de iluminação
+game.Lighting.GlobalShadows = false
+game.Lighting.Brightness = 2
+game.Lighting.TimeOfDay = "14:00:00"
+game.Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+
+-- Otimizar texturas
+for _, texture in pairs(game:GetDescendants()) do
+    if texture:IsA("Texture") or texture:IsA("Decal") then
+        texture.Transparency = 0.5
+    end
+end
+
+-- Ajustar configurações de rede
+game:GetService("NetworkSettings").IncomingReplicationLag = 0
+
+-- Configurações específicas para dispositivos móveis
+if game:GetService("UserInputService").TouchEnabled then
+    -- Ajustar a taxa de atualização para 90Hz
+    game:GetService("RunService"):Set3dRenderingEnabled(true)
+    game:GetService("RunService").RenderStepped:Connect(function()
+        game:GetService("RunService").RenderStepped:Wait(1/90)
+    end)
+end
